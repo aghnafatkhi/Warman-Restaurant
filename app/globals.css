@@ -21,8 +21,19 @@
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 2px;
   }
 }

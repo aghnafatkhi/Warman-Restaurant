@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-ink: #1C1815;
+  --color-bone: #F6F1E7;
+  --color-ember: #BB5A2E;
+  --color-brass: #A98247;
+  --color-warmgrey: #8A7F72;
+
+  --color-sambal-korek: #8C3B2E;
+  --color-sambal-matah: #6B7A3F;
+  --color-sambal-terasi: #5C4630;
+  --color-sambal-cabeijo: #7C8B5E;
+
+  --font-fraunces: var(--font-fraunces), serif;
+  --font-jakarta: var(--font-jakarta), sans-serif;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

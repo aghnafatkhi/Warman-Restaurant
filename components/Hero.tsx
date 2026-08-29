@@ -12,6 +12,7 @@ export default function Hero() {
           src="https://picsum.photos/seed/warmantraditionalfood/1920/1080" 
           alt="Comfort food Indonesia" 
           fill 
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
           className="object-cover opacity-65 mix-blend-luminosity"
           priority
           referrerPolicy="no-referrer"
@@ -49,7 +50,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="text-bone/80 text-sm sm:text-base md:text-lg max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
         >
-          Warman menyajikan comfort food Indonesia — lauk goreng, nasi, rice bowl, dan camilan — dengan sistem pilih sambal sendiri.
+          Warman menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.
         </motion.p>
 
         <motion.div 
@@ -61,14 +62,14 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none">
             <Link 
               href="#menu" 
-              className="bg-ember text-bone px-8 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-ember/90 transition-colors w-full sm:w-auto min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase"
+              className="bg-ember text-bone px-8 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-ember/90 active:scale-[0.98] transition-all duration-150 w-full sm:w-auto min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
             >
               Lihat Menu
             </Link>
             <div className="flex gap-3 w-full sm:w-auto">
                <a 
                  href="tel:+6282123451707" 
-                 className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink transition-colors min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase"
+                 className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink active:scale-[0.98] transition-all duration-150 min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
                >
                  Telepon
                </a>
@@ -76,7 +77,7 @@ export default function Hero() {
                  href="https://maps.google.com/?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor" 
                  target="_blank" 
                  rel="noopener noreferrer" 
-                 className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink transition-colors min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase"
+                 className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink active:scale-[0.98] transition-all duration-150 min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
                >
                  Arah Lokasi
                </a>
@@ -91,7 +92,7 @@ export default function Hero() {
                  </svg>
                ))}
              </div>
-             <span className="text-bone/90 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">4,9 / 5 · 170+ ulasan Google</span>
+             <span className="text-bone/90 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">4,9/5 · dari 170+ ulasan Google</span>
           </div>
 
         </motion.div>

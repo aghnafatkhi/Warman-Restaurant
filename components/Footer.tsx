@@ -1,6 +1,15 @@
+'use client';
+import { motion } from 'motion/react';
+
 export default function Footer() {
   return (
-    <footer className="bg-ink text-bone py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 border-t border-bone/10">
+    <motion.footer 
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="bg-ink text-bone py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 border-t border-bone/10"
+    >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-12 lg:gap-20">
         
         <div className="flex-1">
@@ -39,6 +48,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

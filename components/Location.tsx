@@ -4,7 +4,7 @@ import { MapPin, Phone, Clock } from 'lucide-react';
 
 export default function Location() {
   return (
-    <section id="lokasi" className="py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-bone scroll-mt-6">
+    <section id="lokasi" className="py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-bone scroll-mt-24">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
         
         <div className="flex-1 w-full">
@@ -36,7 +36,7 @@ export default function Location() {
                   href="https://maps.google.com/?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="inline-flex items-center mt-3 text-xs sm:text-sm font-bold uppercase tracking-widest text-ember hover:text-ink transition-colors pb-1 border-b-2 border-ember hover:border-ink min-h-[44px]"
+                  className="inline-flex items-center mt-3 text-xs sm:text-sm font-bold uppercase tracking-widest text-ember hover:text-ink active:scale-[0.98] transition-all duration-150 pb-1 border-b-2 border-ember hover:border-ink min-h-[44px]"
                 >
                   Buka di Google Maps
                 </a>
@@ -50,7 +50,7 @@ export default function Location() {
                 <p className="text-ink/80 mb-2 text-xs sm:text-sm">Pemesanan dan informasi:</p>
                 <a 
                   href="tel:+6282123451707" 
-                  className="font-fraunces text-2xl sm:text-3xl md:text-4xl text-ink hover:text-ember transition-colors inline-block min-h-[44px] items-center"
+                  className="font-fraunces text-2xl sm:text-3xl md:text-4xl text-ink hover:text-ember active:scale-[0.98] transition-all duration-150 inline-block min-h-[44px] items-center"
                 >
                   0821-2345-1707
                 </a>

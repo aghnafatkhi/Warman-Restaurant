@@ -27,7 +27,7 @@ export default function Signature() {
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             className="text-sm sm:text-base md:text-lg text-ink/80 leading-relaxed mb-6 sm:mb-8 max-w-lg"
           >
-            Setiap hidangan goreng favorit Anda disajikan dengan pilihan sambal khas yang diracik khusus. Pilih lauknya, tentukan tingkat pedasnya.
+            Pilih lauk favoritmu, lalu pasangkan dengan sambal Warman sesuai selera.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -37,14 +37,14 @@ export default function Signature() {
           >
             <Link 
               href="#menu" 
-              className="inline-flex items-center gap-2 text-ember font-semibold text-xs sm:text-sm hover:gap-3 transition-all uppercase tracking-widest min-h-[44px]"
+              className="inline-flex items-center gap-2 text-ember font-semibold text-xs sm:text-sm hover:gap-3 transition-all uppercase tracking-widest min-h-[44px] focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm px-1"
             >
               Lihat menu lengkap <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
 
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 md:gap-5 w-full">
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 w-full">
           {sambals.map((sambal, i) => (
             <motion.div
               key={sambal.id}
@@ -52,11 +52,10 @@ export default function Signature() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.4, delay: i * 0.08, ease: "easeOut" }}
-              className="bg-bone border-l-[3px] border-y border-r border-warmgrey/20 p-4 sm:p-5 rounded-sm hover:-translate-y-0.5 transition-transform duration-200"
-              style={{ borderLeftColor: `var(--color-${sambal.color.replace('bg-', '')})` }}
+              className="bg-bone border border-warmgrey/15 p-5 sm:p-6 rounded-xs hover:border-warmgrey/30 hover:bg-ink/[0.01] transition-all duration-250"
             >
-              <div className="flex items-center gap-2.5 mb-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${sambal.color} shrink-0`} />
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className={`w-2 h-2 rounded-full ${sambal.color} shrink-0`} />
                 <h3 className="font-fraunces text-lg sm:text-xl text-ink font-semibold">{sambal.name}</h3>
               </div>
               <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">

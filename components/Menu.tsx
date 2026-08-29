@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { menuData, sambals } from '@/lib/data';
 
@@ -7,77 +8,166 @@ const categories = Object.keys(menuData);
 
 export default function Menu() {
   const [activeTab, setActiveTab] = useState(categories[0]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  const scrollToTab = useCallback((cat: string) => {
+    const container = scrollContainerRef.current;
+    const tabEl = tabRefs.current[cat];
+    if (container && tabEl) {
+      const containerWidth = container.clientWidth;
+      const tabOffsetLeft = tabEl.offsetLeft;
+      const tabWidth = tabEl.clientWidth;
+      
+      // Center the active tab smoothly within the scroll container
+      const scrollTo = tabOffsetLeft - containerWidth / 2 + tabWidth / 2;
+      
+      container.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
+  const handleSelectCategory = (cat: string) => {
+    setActiveTab(cat);
+    scrollToTab(cat);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, currentIndex: number) => {
+    let nextIndex = currentIndex;
+    if (e.key === 'ArrowRight') {
+      nextIndex = (currentIndex + 1) % categories.length;
+    } else if (e.key === 'ArrowLeft') {
+      nextIndex = (currentIndex - 1 + categories.length) % categories.length;
+    } else if (e.key === 'Home') {
+      nextIndex = 0;
+    } else if (e.key === 'End') {
+      nextIndex = categories.length - 1;
+    } else {
+      return;
+    }
+    e.preventDefault();
+    const nextCat = categories[nextIndex];
+    handleSelectCategory(nextCat);
+    tabRefs.current[nextCat]?.focus();
+  };
+
+  useEffect(() => {
+    // Initial centering of active tab if needed
+    scrollToTab(activeTab);
+  }, [activeTab, scrollToTab]);
+
+  const currentItems = menuData[activeTab] || [];
 
   return (
-    <section id="menu" className="py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-ink text-bone scroll-mt-6">
+    <section id="menu" className="py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-ink text-bone scroll-mt-24">
       <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-10 sm:mb-16">
-          <h2 className="font-fraunces text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">Menu Lengkap</h2>
-          <p className="text-warmgrey text-[11px] sm:text-xs uppercase tracking-widest border border-warmgrey/30 px-4 py-1.5 rounded-full font-semibold">
-            Semua harga belum termasuk pajak 10%
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
+          <h2 className="font-fraunces text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4 text-bone">
+            Menu Lengkap
+          </h2>
+          <p className="text-warmgrey text-[11px] sm:text-xs uppercase tracking-widest border border-warmgrey/30 px-3.5 sm:px-4 py-1.5 rounded-full font-semibold">
+            Semua harga belum termasuk pajak 10%.
           </p>
         </div>
 
-        {/* Category Navigation Bar - Flex-nowrap Horizontal Scroll */}
-        <div className="w-full overflow-x-auto hide-scrollbar border-b border-bone/10 mb-8 sm:mb-12 pb-1 relative z-10">
-          <div className="flex flex-nowrap whitespace-nowrap gap-4 sm:gap-8 md:gap-10 min-w-max mx-auto px-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={`whitespace-nowrap text-xs sm:text-sm font-semibold uppercase tracking-widest pb-3.5 transition-colors relative min-h-[44px] flex items-center ${
-                  activeTab === cat ? 'text-ember' : 'text-bone/50 hover:text-bone'
-                }`}
-              >
-                {cat}
-                {activeTab === cat && (
-                  <motion.div 
-                    layoutId="activeMenuTab" 
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-ember" 
-                  />
-                )}
-              </button>
-            ))}
+        {/* Sticky Category Selector */}
+        <div className="sticky top-[56px] sm:top-[64px] z-30 bg-ink/95 backdrop-blur-md py-3 -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 lg:-mx-12 lg:px-12 border-b border-bone/10 mb-8 sm:mb-12 transition-all">
+          <div 
+            ref={scrollContainerRef}
+            role="tablist"
+            aria-label="Kategori Menu"
+            className="flex flex-nowrap whitespace-nowrap gap-2 sm:gap-3 overflow-x-auto hide-scrollbar py-0.5 max-w-5xl mx-auto"
+          >
+            {categories.map((cat, idx) => {
+              const isActive = activeTab === cat;
+              const tabId = `tab-${cat.toLowerCase().replace(/\s+/g, '-')}`;
+              const panelId = `panel-${cat.toLowerCase().replace(/\s+/g, '-')}`;
+
+              return (
+                <button
+                  key={cat}
+                  ref={(el) => { tabRefs.current[cat] = el; }}
+                  id={tabId}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={panelId}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => handleSelectCategory(cat)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                  className={`min-h-[42px] px-4 sm:px-5 rounded-sm text-xs sm:text-sm font-semibold uppercase tracking-wider shrink-0 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ember flex items-center justify-center border ${
+                    isActive
+                      ? 'bg-ember text-bone border-ember shadow-sm'
+                      : 'bg-bone/5 text-bone/60 border-bone/10 hover:text-bone hover:bg-bone/10'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Menu Items Grid */}
-        <div className="min-h-[400px]">
+        {/* Menu Items Container */}
+        <div 
+          id={`panel-${activeTab.toLowerCase().replace(/\s+/g, '-')}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab.toLowerCase().replace(/\s+/g, '-')}`}
+          className="min-h-[360px]"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
               className="grid md:grid-cols-2 gap-x-10 lg:gap-x-16 gap-y-6 sm:gap-y-8"
             >
-              {menuData[activeTab].map((item, i) => (
-                <motion.div 
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: i * 0.03 }}
-                  key={i} 
-                  className="flex justify-between items-start gap-4 border-b border-bone/10 pb-4 sm:pb-5 group hover:border-bone/25 transition-colors"
+              {currentItems.map((item, i) => (
+                <div 
+                  key={`${item.name}-${i}`} 
+                  className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 border-b border-bone/10 pb-4 sm:pb-5 group hover:border-bone/25 transition-colors"
                 >
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-semibold text-bone mb-1 leading-snug">{item.name}</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-bone mb-1 leading-snug tracking-tight">
+                      {item.name}
+                    </h3>
+                    
                     {item.desc && item.desc !== '—' && (
-                      <p className="text-xs sm:text-sm text-bone/60 leading-relaxed mb-2">{item.desc}</p>
+                      <p className="text-xs sm:text-sm text-bone/65 leading-relaxed mb-2 max-w-prose">
+                        {item.desc}
+                      </p>
                     )}
+
                     {item.hasSambal && (
-                      <div className="flex items-center gap-1.5 mt-2">
-                        {sambals.map(s => (
-                          <div key={s.id} className={`w-2.5 h-2.5 rounded-full ${s.color} shrink-0`} title={`Tersedia ${s.name}`} />
-                        ))}
-                        <span className="text-[10px] text-warmgrey uppercase tracking-wider ml-1 font-semibold">Pilihan Sambal</span>
-                      </div>
+                      <button 
+                        type="button"
+                        onClick={() => handleSelectCategory('Sambal')}
+                        title="Klik untuk melihat menu Sambal"
+                        className="inline-flex items-center gap-1.5 mt-1.5 text-left group/sambal focus:outline-none focus-visible:ring-1 focus-visible:ring-ember rounded"
+                      >
+                        <div className="flex items-center gap-1 shrink-0">
+                          {sambals.map(s => (
+                            <span 
+                              key={s.id} 
+                              className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${s.color} shrink-0`} 
+                            />
+                          ))}
+                        </div>
+                        <span className="text-[10px] sm:text-xs text-warmgrey group-hover/sambal:text-ember uppercase tracking-wider font-medium transition-colors">
+                          Pilihan Sambal Tersedia
+                        </span>
+                      </button>
                     )}
                   </div>
-                  <div className="font-fraunces text-xl sm:text-2xl text-ember font-medium whitespace-nowrap shrink-0 mt-0.5">
+
+                  <div className="font-fraunces text-xl sm:text-2xl text-ember font-semibold whitespace-nowrap shrink-0 sm:self-start mt-0.5">
                     {item.price}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
           </AnimatePresence>
@@ -87,3 +177,4 @@ export default function Menu() {
     </section>
   );
 }
+

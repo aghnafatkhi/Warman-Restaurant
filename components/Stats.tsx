@@ -2,9 +2,9 @@
 import { motion } from 'motion/react';
 
 const stats = [
-  { label: 'Rating Google', value: '4,9/5', sub: 'Dari 170+ ulasan' },
-  { label: 'Kisaran Harga', value: '25k–50k', sub: 'Per orang' },
-  { label: 'Jam Buka', value: '10.00', sub: 'Sampai 22.00 Setiap Hari' },
+  { label: 'Rating Google', value: '4,9/5', sub: 'dari 170+ ulasan' },
+  { label: 'Kisaran Harga', value: 'Rp25–50 ribu', sub: 'per orang' },
+  { label: 'Jam Buka', value: '10.00–22.00', sub: 'Setiap hari' },
 ];
 
 export default function Stats() {

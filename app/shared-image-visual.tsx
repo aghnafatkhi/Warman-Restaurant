@@ -1,4 +1,5 @@
 import React from 'react';
+import { siteConfig } from '@/lib/site';
 
 export function getSocialImageVisual() {
   return (
@@ -74,7 +75,7 @@ export function getSocialImageVisual() {
             marginBottom: '24px',
           }}
         >
-          Warman Restaurant
+          {siteConfig.name}
         </div>
 
         {/* Large Title */}
@@ -87,7 +88,7 @@ export function getSocialImageVisual() {
             marginBottom: '16px',
           }}
         >
-          Pilih Lauk, Pilih Sambal.
+          {siteConfig.tagline}
         </div>
 
         {/* Subheading */}
@@ -99,7 +100,7 @@ export function getSocialImageVisual() {
             marginBottom: '32px',
           }}
         >
-          Comfort food Indonesia · Kota Wisata, Cileungsi
+          Comfort food Indonesia · {siteConfig.address.city}
         </div>
 
         {/* Small Supporting footer */}
@@ -113,7 +114,7 @@ export function getSocialImageVisual() {
             textAlign: 'center',
           }}
         >
-          Setiap hari 10.00–22.00 WIB
+          {siteConfig.openingHours.footerDisplay}
         </div>
       </div>
     </div>

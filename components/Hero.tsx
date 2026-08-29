@@ -2,11 +2,11 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-// Ganti nilai di bawah dengan path gambar asli (misalnya '/images/warman-hero.webp') jika sudah tersedia di folder public
-const HERO_IMAGE_SRC: string | null = null;
+import { siteConfig } from '@/lib/site';
 
 export default function Hero() {
+  const HERO_IMAGE_SRC = siteConfig.heroImageSrc;
+
   return (
     <section className="relative pt-24 pb-11 sm:pt-28 sm:pb-14 md:pt-36 md:pb-28 flex flex-col justify-center items-start md:items-center text-left md:text-center px-4 sm:px-6 md:px-8 lg:px-12 bg-ink overflow-hidden">
       {/* Background with Duotone/Ambient overlay */}
@@ -50,14 +50,14 @@ export default function Hero() {
         >
           {/* 1. Location Label */}
           <span className="text-bone/70 text-xs md:text-sm font-medium md:font-semibold md:uppercase md:tracking-[0.08em] mb-3 md:mb-6 block">
-            Restoran di Kota Wisata, Cileungsi
+            {siteConfig.locationBadge}
           </span>
           
           {/* 2. Main Heading & 3. Tagline */}
           <h1 className="font-fraunces text-bone text-[34px] sm:text-[42px] md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.05] md:leading-[1.08] tracking-tight mb-0">
-            Warman Restaurant
+            {siteConfig.name}
             <span className="block text-xl sm:text-2xl md:text-4xl lg:text-5xl mt-2 sm:mt-2.5 md:mt-3 text-bone/90 italic font-normal">
-              Pilih Lauk, Pilih Sambal.
+              {siteConfig.tagline}
             </span>
           </h1>
         </motion.div>
@@ -71,7 +71,7 @@ export default function Hero() {
         >
           {/* 4. Description */}
           <p className="text-bone/75 md:text-bone/80 text-[14px] sm:text-[15px] md:text-lg leading-[1.6] md:leading-relaxed max-w-[36ch] sm:max-w-md md:max-w-xl md:mx-auto mb-6 sm:mb-7 md:mb-10 font-normal">
-            Warman menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.
+            {siteConfig.description}
           </p>
 
           {/* 5. CTA & 6. Rating */}
@@ -88,13 +88,13 @@ export default function Hero() {
               {/* Secondary CTA buttons (Desktop only to prevent duplication with mobile bottom bar) */}
               <div className="hidden md:flex gap-3 w-full sm:w-auto">
                 <a 
-                  href="tel:+6282123451707" 
+                  href={siteConfig.phone.href} 
                   className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink active:scale-[0.98] transition-all duration-150 min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
                 >
                   Telepon
                 </a>
                 <a 
-                  href="https://maps.google.com/?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor" 
+                  href={siteConfig.maps.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex-1 sm:flex-initial border border-bone/30 text-bone px-5 py-3.5 rounded-sm font-semibold text-xs sm:text-sm hover:bg-bone hover:text-ink active:scale-[0.98] transition-all duration-150 min-h-[44px] flex items-center justify-center text-center tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
@@ -108,7 +108,7 @@ export default function Hero() {
             <div className="w-full max-w-[360px] md:max-w-none">
               {/* Mobile: Plain text line */}
               <p className="md:hidden text-xs text-bone/70 font-normal">
-                4,9/5 · dari 170+ ulasan Google
+                {siteConfig.rating.fullText}
               </p>
 
               {/* Desktop: Rating badge pill */}
@@ -120,7 +120,7 @@ export default function Hero() {
                     </svg>
                   ))}
                 </div>
-                <span className="text-bone/90 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">4,9/5 · dari 170+ ulasan Google</span>
+                <span className="text-bone/90 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">{siteConfig.rating.fullText}</span>
               </div>
             </div>
           </div>

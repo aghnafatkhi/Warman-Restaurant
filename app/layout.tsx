@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {Fraunces, Plus_Jakarta_Sans} from 'next/font/google';
-import './globals.css'; // Global styles
+import './globals.css';
+import { siteConfig } from '@/lib/site';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -15,42 +16,43 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Warman Restaurant | Pilih Lauk, Pilih Sambal — Kota Wisata',
-  description: 'Warman Restaurant di Kota Wisata, Cileungsi, menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.',
+  metadataBase: new URL(siteConfig.url),
+  title: `${siteConfig.name} | ${siteConfig.tagline} — Kota Wisata`,
+  description: siteConfig.description,
   alternates: {
-    canonical: 'https://warmanresto.vercel.app/',
+    canonical: siteConfig.url,
   },
   openGraph: {
-    title: 'Warman Restaurant | Pilih Lauk, Pilih Sambal — Kota Wisata',
-    description: 'Warman Restaurant di Kota Wisata, Cileungsi, menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.',
-    url: 'https://warmanresto.vercel.app/',
-    siteName: 'Warman Restaurant',
+    title: `${siteConfig.name} | ${siteConfig.tagline} — Kota Wisata`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: 'id_ID',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Warman Restaurant | Pilih Lauk, Pilih Sambal — Kota Wisata',
-    description: 'Warman Restaurant di Kota Wisata, Cileungsi, menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.',
+    title: `${siteConfig.name} | ${siteConfig.tagline} — Kota Wisata`,
+    description: siteConfig.description,
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Restaurant',
-  'name': 'Warman Restaurant',
-  'description': 'Warman Restaurant di Kota Wisata, Cileungsi, menyajikan comfort food Indonesia, dari lauk goreng dan rice bowl hingga camilan, dengan pilihan sambal sesuai selera.',
-  'url': 'https://warmanresto.vercel.app/',
-  'telephone': '+6282123451707',
-  'priceRange': 'Rp25.000–Rp50.000',
+  'name': siteConfig.name,
+  'description': siteConfig.description,
+  'url': siteConfig.url,
+  'telephone': siteConfig.phone.raw,
+  'priceRange': siteConfig.priceRange.schema,
   'servesCuisine': 'Indonesian comfort food',
   'address': {
     '@type': 'PostalAddress',
-    'streetAddress': 'Ruko Commpark, Jl. Canadian Broadway Kota Wisata No. 15 Blok E',
-    'addressLocality': 'Cileungsi',
-    'addressRegion': 'Jawa Barat',
-    'postalCode': '16820',
-    'addressCountry': 'ID',
+    'streetAddress': siteConfig.address.street,
+    'addressLocality': siteConfig.address.locality,
+    'addressRegion': siteConfig.address.region,
+    'postalCode': siteConfig.address.postalCode,
+    'addressCountry': siteConfig.address.country,
   },
   'openingHoursSpecification': {
     '@type': 'OpeningHoursSpecification',
@@ -63,8 +65,8 @@ const jsonLd = {
       'Saturday',
       'Sunday',
     ],
-    'opens': '10:00',
-    'closes': '22:00',
+    'opens': siteConfig.openingHours.opens,
+    'closes': siteConfig.openingHours.closes,
   },
 };
 
@@ -77,7 +79,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
         />
       </head>
-      <body className={`${fraunces.variable} ${jakarta.variable} font-jakarta bg-bone text-ink antialiased selection:bg-ember/30 selection:text-ink`} suppressHydrationWarning>
+      <body className={`${fraunces.variable} ${jakarta.variable} font-jakarta bg-bone text-ink antialiased selection:bg-ember/30 selection:text-ink`}>
         {children}
       </body>
     </html>

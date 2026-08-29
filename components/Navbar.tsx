@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
+import { siteConfig } from '@/lib/site';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -101,13 +102,13 @@ export default function Navbar() {
       <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-bone text-ink shadow-sm py-3.5 sm:py-4 border-b border-ink/5' : 'bg-transparent text-bone py-4 sm:py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-between">
           <Link href="/" className="font-fraunces text-xl sm:text-2xl font-semibold tracking-wide hover:opacity-80 transition-opacity focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm">
-            Warman
+            {siteConfig.shortName}
           </Link>
           
           <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
             <Link href="#menu" className="font-medium text-xs lg:text-sm uppercase tracking-widest hover:text-ember transition-colors focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm">Menu</Link>
             <Link href="#lokasi" className="font-medium text-xs lg:text-sm uppercase tracking-widest hover:text-ember transition-colors focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm">Lokasi</Link>
-            <a href="tel:+6282123451707" className="bg-ember text-bone px-5 py-2.5 rounded-sm font-medium text-xs lg:text-sm hover:bg-ember/90 active:scale-[0.98] transition-all duration-150 flex items-center gap-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none">
+            <a href={siteConfig.phone.href} className="bg-ember text-bone px-5 py-2.5 rounded-sm font-medium text-xs lg:text-sm hover:bg-ember/90 active:scale-[0.98] transition-all duration-150 flex items-center gap-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none">
               <Phone className="w-4 h-4" />
               Telepon
             </a>
@@ -141,7 +142,7 @@ export default function Navbar() {
             className="fixed inset-0 z-50 bg-ink text-bone flex flex-col p-5 sm:p-8"
           >
             <div className="flex justify-between items-center mb-12">
-              <span className="font-fraunces text-2xl font-semibold">Warman</span>
+              <span className="font-fraunces text-2xl font-semibold">{siteConfig.shortName}</span>
               <button 
                 ref={closeBtnRef}
                 onClick={() => setIsMobileMenuOpen(false)} 
@@ -173,7 +174,7 @@ export default function Navbar() {
             <div className="mt-auto pb-6">
               <a 
                 ref={phoneBtnRef}
-                href="tel:+6282123451707" 
+                href={siteConfig.phone.href} 
                 className="w-full bg-ember text-bone py-3.5 rounded-sm font-medium text-center hover:bg-ember/90 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 text-base min-h-[48px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
               >
                 <Phone className="w-5 h-5" />

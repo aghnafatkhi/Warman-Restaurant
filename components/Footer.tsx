@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'motion/react';
+import { siteConfig } from '@/lib/site';
 
 export default function Footer() {
   return (
@@ -13,12 +14,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-12 lg:gap-20">
         
         <div className="flex-1">
-          <span className="font-fraunces text-2xl sm:text-3xl font-semibold mb-3 block">Warman</span>
+          <span className="font-fraunces text-2xl sm:text-3xl font-semibold mb-3 block">{siteConfig.shortName}</span>
           <p className="text-warmgrey text-xs sm:text-sm mb-6 max-w-sm leading-relaxed">
-            Restoran comfort food Indonesia dengan sistem khas Pilih Lauk, Pilih Sambal.
+            {siteConfig.shortDescription}
           </p>
           <p className="text-[11px] sm:text-xs font-semibold tracking-wider text-warmgrey/60 uppercase">
-            © 2026 Warman Restaurant.
+            © 2026 {siteConfig.name}.
           </p>
         </div>
 
@@ -26,24 +27,24 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-bone mb-3 uppercase tracking-widest text-[11px] sm:text-xs">Lokasi</h4>
             <a 
-              href="https://maps.google.com/?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor" 
+              href={siteConfig.maps.url} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-warmgrey hover:text-bone transition-colors leading-relaxed block"
             >
-              Ruko Commpark, Jl. Canadian Broadway Kota Wisata No. 15 Blok E, Limus Nunggal, Cileungsi, Bogor 16820
+              {siteConfig.address.short}
             </a>
           </div>
           <div>
             <h4 className="font-bold text-bone mb-3 uppercase tracking-widest text-[11px] sm:text-xs">Kontak & Jam</h4>
             <a 
-              href="tel:+6282123451707" 
+              href={siteConfig.phone.href} 
               className="text-warmgrey hover:text-bone transition-colors block mb-2 font-medium"
             >
-              0821-2345-1707
+              {siteConfig.phone.display}
             </a>
             <span className="text-warmgrey block">
-              Setiap hari: 10.00–22.00 WIB
+              {siteConfig.openingHours.display}
             </span>
           </div>
         </div>

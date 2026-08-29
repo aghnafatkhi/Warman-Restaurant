@@ -1,5 +1,5 @@
 export const sambals = [
-  { id: 'korek', name: 'Sambal Korek', desc: 'Cabai dan bawang goreng dengan rasa pedas yang paling kuat.', color: 'bg-sambal-korek' },
+  { id: 'korek', name: 'Sambal Korek', desc: 'Cabai dan bawang goreng dengan rasa pedas.', color: 'bg-sambal-korek' },
   { id: 'matah', name: 'Sambal Matah', desc: 'Bawang merah dan serai segar dengan aroma khas sambal matah.', color: 'bg-sambal-matah' },
   { id: 'terasi', name: 'Sambal Terasi', desc: 'Terasi dengan rasa gurih dan aroma yang khas.', color: 'bg-sambal-terasi' },
   { id: 'cabeijo', name: 'Cabe Ijo', desc: 'Sambal cabai hijau dengan rasa gurih.', color: 'bg-sambal-cabeijo' },

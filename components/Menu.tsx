@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { menuData, sambals } from '@/lib/data';
+import { siteConfig } from '@/lib/site';
 
 const categories = Object.keys(menuData);
 
@@ -69,7 +70,7 @@ export default function Menu() {
             Menu Lengkap
           </h2>
           <p className="text-warmgrey text-[11px] sm:text-xs uppercase tracking-widest border border-warmgrey/30 px-3.5 sm:px-4 py-1.5 rounded-full font-semibold">
-            Semua harga belum termasuk pajak 10%.
+            {siteConfig.taxNote}
           </p>
         </div>
 
@@ -97,7 +98,7 @@ export default function Menu() {
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => handleSelectCategory(cat)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className={`min-h-[42px] px-4 sm:px-5 rounded-sm text-xs sm:text-sm font-semibold uppercase tracking-wider shrink-0 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ember flex items-center justify-center border ${
+                  className={`min-h-[44px] px-4 sm:px-5 rounded-sm text-xs sm:text-sm font-semibold uppercase tracking-wider shrink-0 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ember flex items-center justify-center border ${
                     isActive
                       ? 'bg-ember text-bone border-ember shadow-sm'
                       : 'bg-bone/5 text-bone/60 border-bone/10 hover:text-bone hover:bg-bone/10'
@@ -115,7 +116,7 @@ export default function Menu() {
           id={`panel-${activeTab.toLowerCase().replace(/\s+/g, '-')}`}
           role="tabpanel"
           aria-labelledby={`tab-${activeTab.toLowerCase().replace(/\s+/g, '-')}`}
-          className="min-h-[360px]"
+          className="min-h-0 md:min-h-[360px]"
         >
           <AnimatePresence mode="wait">
             <motion.div

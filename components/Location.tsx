@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Clock } from 'lucide-react';
+import { siteConfig } from '@/lib/site';
 
 export default function Location() {
   return (
@@ -30,10 +31,10 @@ export default function Location() {
               <div>
                 <h3 className="font-semibold text-base sm:text-lg text-ink mb-1">Alamat</h3>
                 <p className="text-ink/80 leading-relaxed text-xs sm:text-sm md:text-base max-w-md">
-                  Ruko Commpark, Jl. Canadian Broadway Kota Wisata No. 15 Blok E, Limus Nunggal, Kec. Cileungsi, Kab. Bogor, Jawa Barat 16820.
+                  {siteConfig.address.full}
                 </p>
                 <a 
-                  href="https://maps.google.com/?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor" 
+                  href={siteConfig.maps.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="inline-flex items-center mt-3 text-xs sm:text-sm font-bold uppercase tracking-widest text-ember hover:text-ink active:scale-[0.98] transition-all duration-150 pb-1 border-b-2 border-ember hover:border-ink min-h-[44px]"
@@ -47,12 +48,12 @@ export default function Location() {
               <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-ember shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-base sm:text-lg text-ink mb-1">Hubungi Kami</h3>
-                <p className="text-ink/80 mb-2 text-xs sm:text-sm">Pemesanan dan informasi:</p>
+                <p className="text-ink/80 mb-2 text-xs sm:text-sm">Informasi & kontak:</p>
                 <a 
-                  href="tel:+6282123451707" 
+                  href={siteConfig.phone.href} 
                   className="font-fraunces text-2xl sm:text-3xl md:text-4xl text-ink hover:text-ember active:scale-[0.98] transition-all duration-150 inline-block min-h-[44px] items-center"
                 >
-                  0821-2345-1707
+                  {siteConfig.phone.display}
                 </a>
               </div>
             </div>
@@ -61,7 +62,7 @@ export default function Location() {
               <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-ember shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-base sm:text-lg text-ink mb-1">Jam Operasional</h3>
-                <p className="text-ink/80 text-xs sm:text-sm md:text-base">Setiap hari: 10.00–22.00 WIB</p>
+                <p className="text-ink/80 text-xs sm:text-sm md:text-base">{siteConfig.openingHours.display}</p>
               </div>
             </div>
           </motion.div>
@@ -76,12 +77,12 @@ export default function Location() {
         >
           <div className="w-full h-full relative overflow-hidden bg-bone rounded-sm">
              <iframe 
-               src="https://maps.google.com/maps?q=Ruko+Commpark,+Jl.+Canadian+Broadway+Kota+Wisata+No.+15+Blok+E,+Limus+Nunggal,+Kecamatan+Cileungsi,+Kabupaten+Bogor&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+               src={siteConfig.maps.embedUrl} 
                className="absolute inset-0 w-full h-full border-0 filter grayscale-[20%] contrast-[95%]"
                allowFullScreen
                loading="lazy"
                referrerPolicy="no-referrer-when-downgrade"
-               title="Peta Lokasi Warman Restaurant"
+               title={`Peta Lokasi ${siteConfig.name}`}
              />
           </div>
         </motion.div>

@@ -1,10 +1,11 @@
 'use client';
 import { motion } from 'motion/react';
+import { siteConfig } from '@/lib/site';
 
 const stats = [
-  { label: 'Rating Google', value: '4,9/5', sub: 'dari 170+ ulasan' },
-  { label: 'Kisaran Harga', value: 'Rp25–50 ribu', sub: 'per orang' },
-  { label: 'Jam Buka', value: '10.00–22.00', sub: 'Setiap hari' },
+  { label: 'Rating Google', value: siteConfig.rating.value, sub: siteConfig.rating.reviewsLabel },
+  { label: 'Kisaran Harga', value: siteConfig.priceRange.display, sub: siteConfig.priceRange.subText },
+  { label: 'Jam Buka', value: siteConfig.openingHours.shortDisplay, sub: siteConfig.openingHours.subText },
 ];
 
 export default function Stats() {

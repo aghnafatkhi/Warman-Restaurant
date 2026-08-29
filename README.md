@@ -24,9 +24,9 @@ Kode dan data disusun secara modular agar pemilik restoran atau developer dapat 
 | File | Deskripsi |
 | :--- | :--- |
 | **`lib/site.ts`** | **Single Source of Truth** untuk seluruh data bisnis: nama restoran, nomor telepon, alamat, jam operasional, link Google Maps, rating, dan konfigurasi foto hero. |
-| **`lib/data.ts`** | Daftar menu lengkap, harga, kategori (*Rice Bowl*, *Main Course*, *Side Dish*, *Sambal*, *Savory Bites*, *Sweet Bites*, *Beverage*), dan deskripsi sambal. |
+| **`lib/data.ts`** | Daftar menu lengkap, harga, kategori (*Rice Bowl*, *Main Course*, *Side Dish*, *Sambal*, *Savory Bites*, *Sweet Bites*), dan deskripsi sambal. |
 | **`components/Hero.tsx`** | Komponen Hero (mobile-first responsif dengan ambient visual identity). |
-| **`components/Menu.tsx`** | Komponen menu interaktif dengan scrollbar tab kategori dan modal sambal selector. |
+| **`components/Menu.tsx`** | Komponen menu interaktif dengan kategori horizontal, keyboard navigation, dan navigasi ke pilihan sambal. |
 | **`components/Location.tsx`** | Komponen lokasi, informasi kontak, dan Google Maps interactive embed. |
 | **`app/opengraph-image.tsx`** | Generator dinamis Open Graph image (1200×630). |
 | **`app/twitter-image.tsx`** | Generator dinamis Twitter/X card image (1200×630). |

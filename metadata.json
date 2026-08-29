@@ -2,5 +2,5 @@
   "name": "Warman Restaurant",
   "description": "Restoran comfort food Indonesia di Kota Wisata Cileungsi dengan sistem khas Pilih Lauk, Pilih Sambal.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
@@ -8,21 +8,92 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const menuLinkRef = useRef<HTMLAnchorElement>(null);
+  const locationLinkRef = useRef<HTMLAnchorElement>(null);
+  const phoneBtnRef = useRef<HTMLAnchorElement>(null);
+  const isFirstRender = useRef(true);
+
+  // Scroll handler for sticky background
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 15);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile navigation is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Focus trap & escape key handler when mobile navigation is open
   useEffect(() => {
     if (!isMobileMenuOpen) return;
+
+    // Set focus to the close button initially
+    const timer = setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 50);
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMobileMenuOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusableElements = [
+          closeBtnRef.current,
+          menuLinkRef.current,
+          locationLinkRef.current,
+          phoneBtnRef.current,
+        ].filter(Boolean) as HTMLElement[];
+
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          // Shift + Tab: focus wraps to last if active on first
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          // Tab: focus wraps to first if active on last
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Focus restoration on menu close (without causing viewport scroll jumps)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!isMobileMenuOpen) {
+      triggerRef.current?.focus({ preventScroll: true });
+    }
   }, [isMobileMenuOpen]);
 
   return (
@@ -43,10 +114,12 @@ export default function Navbar() {
           </div>
 
           <button 
+            ref={triggerRef}
             className="md:hidden flex items-center justify-center p-2 min-w-[44px] min-h-[44px] text-current focus:outline-none focus-visible:ring-2 focus-visible:ring-ember hover:opacity-80 active:scale-[0.96] transition-all rounded-sm" 
             onClick={() => setIsMobileMenuOpen(true)} 
             aria-label="Buka Menu Navigasi"
             aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -57,6 +130,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
+            id="mobile-navigation"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -69,6 +143,7 @@ export default function Navbar() {
             <div className="flex justify-between items-center mb-12">
               <span className="font-fraunces text-2xl font-semibold">Warman</span>
               <button 
+                ref={closeBtnRef}
                 onClick={() => setIsMobileMenuOpen(false)} 
                 aria-label="Tutup Menu Navigasi"
                 aria-expanded={isMobileMenuOpen}
@@ -79,6 +154,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col space-y-6 text-xl sm:text-2xl font-fraunces">
               <Link 
+                ref={menuLinkRef}
                 href="#menu" 
                 onClick={() => setIsMobileMenuOpen(false)} 
                 className="hover:text-ember transition-colors py-2 min-h-[44px] flex items-center focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm"
@@ -86,6 +162,7 @@ export default function Navbar() {
                 Menu Lengkap
               </Link>
               <Link 
+                ref={locationLinkRef}
                 href="#lokasi" 
                 onClick={() => setIsMobileMenuOpen(false)} 
                 className="hover:text-ember transition-colors py-2 min-h-[44px] flex items-center focus-visible:ring-2 focus-visible:ring-ember focus-visible:outline-none rounded-sm"
@@ -95,6 +172,7 @@ export default function Navbar() {
             </div>
             <div className="mt-auto pb-6">
               <a 
+                ref={phoneBtnRef}
                 href="tel:+6282123451707" 
                 className="w-full bg-ember text-bone py-3.5 rounded-sm font-medium text-center hover:bg-ember/90 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 text-base min-h-[48px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember focus-visible:outline-none"
               >

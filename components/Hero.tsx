@@ -3,23 +3,41 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// Ganti nilai di bawah dengan path gambar asli (misalnya '/images/warman-hero.webp') jika sudah tersedia di folder public
+const HERO_IMAGE_SRC: string | null = null;
+
 export default function Hero() {
   return (
     <section className="relative pt-24 pb-14 sm:pt-28 sm:pb-20 md:pt-36 md:pb-28 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8 lg:px-12 bg-ink overflow-hidden">
-      {/* Background with Duotone overlay */}
+      {/* Background with Duotone/Ambient overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-ink">
-        <Image 
-          src="https://picsum.photos/seed/warmantraditionalfood/1920/1080" 
-          alt="Comfort food Indonesia" 
-          fill 
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
-          className="object-cover opacity-65 mix-blend-luminosity"
-          priority
-          referrerPolicy="no-referrer"
-        />
-        {/* Warm Ember & Ink duotone gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/30 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-ember/15 mix-blend-overlay" />
+        {HERO_IMAGE_SRC ? (
+          <>
+            <Image 
+              src={HERO_IMAGE_SRC} 
+              alt="" 
+              fill 
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
+              className="object-cover opacity-65 mix-blend-luminosity"
+              priority
+              referrerPolicy="no-referrer"
+            />
+            {/* Warm Ember & Ink duotone gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/30 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-ember/15 mix-blend-overlay" />
+          </>
+        ) : (
+          <>
+            {/* Ambient Brand Color treatment - Deterministic and Elegant */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/95 to-ink/90" />
+            {/* Subtle glow centered */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(187,90,46,0.12)_0%,transparent_70%)]" />
+            {/* Accent light on top */}
+            <div className="absolute top-0 inset-x-0 h-[500px] bg-[radial-gradient(circle_at_top,rgba(187,90,46,0.08)_0%,transparent_60%)]" />
+            {/* Pinstripe grid motif for custom craft texture */}
+            <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#8A7F72_1px,transparent_1px),linear-gradient(to_bottom,#8A7F72_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+          </>
+        )}
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
